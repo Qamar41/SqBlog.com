@@ -1,0 +1,43 @@
+{% extends 'blog/base.html'%}
+{% load crispy_forms_tags %}
+{% block content  %}
+
+<div class="content-section mt-5">
+  <div class="media">
+
+    <img class="rounded-circle account-img" src="{{ user.profile.image.url }}" height="300" width="200">
+    <div class="media-body">
+     <fieldset class="form-group">
+       <legend class="border-bottom mb-4 text-center text-danger " ><b>Personal Info</b> </legend>
+       <h1 class="account-heading text-info">{{user.username}}   ,  {{user.email}}</h1> <hr>
+      <h3 class="text-secondary text-info">{{user.profile.profession}}</h3><hr>
+      <h3 class="text-secondary text-info">{{user.profile.desccription|safe}}</h3><hr>
+      <h3 class="text-secondary text-info">{{user.profile.whattsapp}}</h3><hr>
+
+
+    </fieldset>
+</div>
+  </div>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <fieldset class="form-group">
+      <legend class="border-bottom mb-4">Profile Info </legend>
+
+    </fieldset>
+
+<!--      {{ form.media|safe }}-->
+    {{u_form | crispy|safe}}
+    {{p_form | crispy }}
+<!--      <p>{{p_form.desccription}}</p>-->
+
+<div class="form-group">
+    <button class="btn btn-outline-info">Update Info</button>
+
+
+</div>
+</form>
+</div>
+
+
+{% endblock content%}

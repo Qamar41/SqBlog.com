@@ -9,28 +9,43 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link  rel="stylesheet" href="{% static 'blog/style.css' %}">
+
+
+
     {% if title %}
     <title>SqBlog | {{title}}</title>
     {% else %}
      <title>SqBlog </title>
     {% endif %}
+
+    {{ form.media }}
 </head>
 <body>
   <header class="site-header">
   <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
     <div class="container">
-      <a class="navbar-brand mr-4" href="{% url 'blog-home' %}">Django Blog</a>
+      <a class="navbar-brand mr-4" href="{% url 'blog-home' %}">Coding with Qamar</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
       </button>
+
+
       <div class="collapse navbar-collapse" id="navbarToggle">
         <div class="navbar-nav mr-auto">
           <a class="nav-item nav-link" href="{% url 'blog-home' %}">Home</a>
           <a class="nav-item nav-link" href="{% url 'blog-about' %}">About</a>
         </div>
+
+        <div>
+          <form action="{% url 'search_results' %}" method="get">
+  <input name="q" type="text" placeholder="Search...">
+</form>
+        </div>
         <!-- Navbar Right Side -->
         {% if user.is_authenticated %}
         <div class="navbar-nav">
+           <a class="nav-item nav-link" href="{% url 'post-create' %}">Create Post</a>
+           <a class="nav-item nav-link" href="{% url 'user-postses' %}">My Posts</a>
           <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
           <a class="nav-item nav-link" href="{% url 'profile' %}">profile</a>
         </div>
@@ -49,7 +64,7 @@
 
  <main role="main" class="container">
   <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-9">
           {% if messages %}
             {% for message in messages %}
               <div class="alert alert-{{ message.tags }}">
@@ -57,18 +72,19 @@
               </div>
             {% endfor %}
           {% endif %}
-          {% block content %}{% endblock %}
+          {% block content %}
+
+
+          {% endblock %}
         </div>
 
-    <div class="col-md-4">
-      <div class="content-section">
-        <h3>Our Sidebar</h3>
-        <p class='text-muted'>You can put any information here you'd like.
-          <ul class="list-group">
-            <li class="list-group-item list-group-item-light">Latest Posts</li>
-            <li class="list-group-item list-group-item-light">Announcements</li>
-            <li class="list-group-item list-group-item-light">Calendars</li>
-            <li class="list-group-item list-group-item-light">etc</li>
+    <div class="col-md-3 pt-5 mt-5 ml-0">
+      <div class="content-section mt-5">
+
+          <ul class="list-group ">
+        <li  class="list-group-item list-group-item-light" > <a href="{% url 'latest' %}">Latest Posts</a></li>
+            <li class="list-group-item list-group-item-light"> <a href="{% url 'Announcementsall' %}">Announcements</a></li>
+
           </ul>
         </p>
       </div>
